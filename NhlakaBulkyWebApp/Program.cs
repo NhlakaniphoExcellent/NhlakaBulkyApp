@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using NhlakaBulkyWebApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Adding the connection string for MS sql server database
+builder.Services.AddDbContext<ApplicationDataContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
