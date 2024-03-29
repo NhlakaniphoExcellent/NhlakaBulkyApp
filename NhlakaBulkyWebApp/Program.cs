@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NhlakaBulkyWebApp.Data;
+using NhlakaBulky.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 

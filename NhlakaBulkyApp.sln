@@ -5,6 +5,12 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhlakaBulkyWebApp", "NhlakaBulkyWebApp\NhlakaBulkyWebApp.csproj", "{7F5D7BCF-22DE-4B8A-BD13-851B944D144D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhlakaBulky.DataAccess", "NhlakaBulky.DataAccess\NhlakaBulky.DataAccess.csproj", "{B2329C6E-71FE-46E1-B960-B0D2233DAE6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhlakaWebApp.Models", "NhlakaWebApp.Models\NhlakaWebApp.Models.csproj", "{C45BC69E-CC98-436F-A3B3-68EF820D9593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhlakaWeb.Utility", "NhlakaWeb.Utility\NhlakaWeb.Utility.csproj", "{D69A7BC2-0C23-47BA-8EE8-F50B1D62D6AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{7F5D7BCF-22DE-4B8A-BD13-851B944D144D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F5D7BCF-22DE-4B8A-BD13-851B944D144D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F5D7BCF-22DE-4B8A-BD13-851B944D144D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2329C6E-71FE-46E1-B960-B0D2233DAE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2329C6E-71FE-46E1-B960-B0D2233DAE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2329C6E-71FE-46E1-B960-B0D2233DAE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2329C6E-71FE-46E1-B960-B0D2233DAE6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45BC69E-CC98-436F-A3B3-68EF820D9593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45BC69E-CC98-436F-A3B3-68EF820D9593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45BC69E-CC98-436F-A3B3-68EF820D9593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45BC69E-CC98-436F-A3B3-68EF820D9593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D69A7BC2-0C23-47BA-8EE8-F50B1D62D6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D69A7BC2-0C23-47BA-8EE8-F50B1D62D6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D69A7BC2-0C23-47BA-8EE8-F50B1D62D6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D69A7BC2-0C23-47BA-8EE8-F50B1D62D6AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

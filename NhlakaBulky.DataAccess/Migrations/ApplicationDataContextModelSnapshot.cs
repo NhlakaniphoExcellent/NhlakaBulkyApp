@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NhlakaBulkyWebApp.Data;
 
 #nullable disable
 
-namespace NhlakaBulkyWebApp.Migrations
+namespace NhlakaBulky.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    [Migration("20240321193216_AddCategoryToDb")]
-    partial class AddCategoryToDb
+    partial class ApplicationDataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,11 +34,38 @@ namespace NhlakaBulkyWebApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("ID");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DisplayOrder = 1,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            DisplayOrder = 2,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            DisplayOrder = 3,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            DisplayOrder = 4,
+                            Name = "Kasi"
+                        });
                 });
 #pragma warning restore 612, 618
         }

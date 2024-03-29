@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NhlakaBulkyWebApp.Data;
 using NhlakaBulkyWebApp.Models;
+using NhlakaBulky.DataAccess;
 
 namespace NhlakaBulkyWebApp.Controllers
 {

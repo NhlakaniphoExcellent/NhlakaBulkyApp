@@ -8,11 +8,11 @@ using NhlakaBulkyWebApp.Data;
 
 #nullable disable
 
-namespace NhlakaBulkyWebApp.Migrations
+namespace NhlakaBulky.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    [Migration("20240321200633_SeedCategoryTable")]
-    partial class SeedCategoryTable
+    [Migration("20240329134040_AddCategoryToDbAndSeeding")]
+    partial class AddCategoryToDbAndSeeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,8 @@ namespace NhlakaBulkyWebApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("ID");
 
