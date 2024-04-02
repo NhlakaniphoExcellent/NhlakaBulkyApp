@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NhlakaBulkyWebApp.Data;
 using NhlakaBulky.DataAccess;
+using NhlakaBulky.DataAccess.Repository.IRepository;
+using NhlakaBulky.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddControllersWithViews();
 //Adding the connection string for MS sql server database
 builder.Services.AddDbContext<ApplicationDataContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// AddScoped<> : For one request it will use the same service
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -30,6 +35,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

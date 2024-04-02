@@ -2,22 +2,24 @@
 using NhlakaBulkyWebApp.Data;
 using NhlakaBulkyWebApp.Models;
 using NhlakaBulky.DataAccess;
+using NhlakaBulky.DataAccess.Repository.IRepository;
 
-namespace NhlakaBulkyWebApp.Controllers
+namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         // Dependency injection detected!!
-        private readonly ApplicationDataContext _db;
-        public CategoryController(ApplicationDataContext db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
             // we access sql database with the data context class hence I used "Categories"
-            List<Category> categoryObjectList = _db.Categories.ToList();
+            List<Category> categoryObjectList = _unitOfWork.categoryRepository.GetAll().ToList();
             return View(categoryObjectList);
         }
 
@@ -43,8 +45,8 @@ namespace NhlakaBulkyWebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(category);
-                _db.SaveChanges();
+                _unitOfWork.categoryRepository.Add(category);
+                _unitOfWork.Save();
                 TempData["Created"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -55,13 +57,13 @@ namespace NhlakaBulkyWebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int? Id)
         {
-            if(Id == null || Id == 0)
+            if (Id == null || Id == 0)
             {
                 return NotFound();
             }
-            Category? categoryFromDB = _db.Categories.FirstOrDefault(x => x.ID == Id);
+            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
 
-            if(categoryFromDB == null)
+            if (categoryFromDB == null)
             {
                 return NotFound();
             }
@@ -83,8 +85,8 @@ namespace NhlakaBulkyWebApp.Controllers
                } */
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(category);
-                _db.SaveChanges();
+                _unitOfWork.categoryRepository.Update(category);
+                _unitOfWork.Save();
                 TempData["Created"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
@@ -99,7 +101,7 @@ namespace NhlakaBulkyWebApp.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDB = _db.Categories.FirstOrDefault(x => x.ID == Id);
+            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
 
             if (categoryFromDB == null)
             {
@@ -122,13 +124,13 @@ namespace NhlakaBulkyWebApp.Controllers
                    ModelState.AddModelError("", "The Display Order cannot be the same as Catergory Name");
                } */
 
-            Category? categoryFromDB = _db.Categories.FirstOrDefault(x => x.ID == Id);
+            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
             if (categoryFromDB == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(categoryFromDB);
-            _db.SaveChanges();
+            _unitOfWork.categoryRepository.Remove(categoryFromDB);
+            _unitOfWork.Save();
             TempData["Created"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }

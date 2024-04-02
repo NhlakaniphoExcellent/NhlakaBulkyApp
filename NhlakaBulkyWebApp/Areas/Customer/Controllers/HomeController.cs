@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using NhlakaBulkyWebApp.Models;
 using System.Diagnostics;
 
-namespace NhlakaBulkyWebApp.Controllers
+namespace NhlakaBulkyWebApp.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
