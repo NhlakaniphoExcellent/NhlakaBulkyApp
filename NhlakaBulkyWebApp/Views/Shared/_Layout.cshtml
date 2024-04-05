@@ -36,6 +36,9 @@
                                 <li class="nav-item">
                                     <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                             </ul>
                         </li>
@@ -51,11 +54,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer bg-primary" data-bs-theme="light">
+    @* <footer class="border-top fixed-bottom footer bg-primary" data-bs-theme="light">
         <div class="text-center text-white">
             <i class="bi bi-filter-circle-fill"></i> - VIBE<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

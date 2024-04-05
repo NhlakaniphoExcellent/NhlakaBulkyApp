@@ -3,40 +3,57 @@ using NhlakaBulkyWebApp.Data;
 using NhlakaBulkyWebApp.Models;
 using NhlakaBulky.DataAccess;
 using NhlakaBulky.DataAccess.Repository.IRepository;
+using NhlakaWebApp.Models.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NhlakaWebApp.Models.ViewModels;
 
 namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         // Dependency injection detected!!
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
+        // ViewBag : Transfers data from controller to view and not vice versa
         public IActionResult Index()
         {
             // we access sql database with the data context class hence I used "Categories"
-            List<Category> categoryObjectList = _unitOfWork.categoryRepository.GetAll().ToList();
-            return View(categoryObjectList);
+            List<Product> productObjectList = _unitOfWork.productRepository.GetAll().ToList();
+            return View(productObjectList);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            // Here I am making a dropdownlist using IEnumerable
+            IEnumerable<SelectListItem> categoryList = _unitOfWork.categoryRepository
+                .GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.ID.ToString()
+                });
+
+            ViewBag.CategoryList = categoryList;
+            ProductVM productVM = new ProductVM()
+            {
+                CategoryList = categoryList,
+                Product = new Product()
+
+
+            };
+            return View(productVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category category)
+        public IActionResult Create(ProductVM products)
         {
-            ////if (category.Name == category.DisplayOrder.ToString())
-            ////{
-            ////    ModelState.AddModelError("", "The Display Order cannot be the same as Catergory Name");
-            ////}
+           
 
             /*   if (category.Name == category.DisplayOrder.ToString())
                {
@@ -45,13 +62,24 @@ namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.categoryRepository.Add(category);
+                _unitOfWork.productRepository.Add(products.Product);
                 _unitOfWork.Save();
-                TempData["Created"] = "Category Created Successfully";
+                TempData["Created"] = "Product Created Successfully";
                 return RedirectToAction("Index");
             }
-
-            return View();
+            else
+            {
+                IEnumerable<SelectListItem> categoryList = _unitOfWork.categoryRepository
+               .GetAll().Select(x => new SelectListItem
+               {
+                   Text = x.Name,
+                   Value = x.ID.ToString()
+               });
+                ViewBag.CategoryList = categoryList;
+                products.CategoryList = categoryList;
+                return View(products);
+            }
+          
         }
 
         [HttpGet]
@@ -61,19 +89,19 @@ namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
+            Product? productFromDB = _unitOfWork.productRepository.GetN(x => x.Id == Id);
 
-            if (categoryFromDB == null)
+            if (productFromDB == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDB);
+            return View(productFromDB);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Product product)
         {
             //if (category.Name == category.DisplayOrder.ToString())
             //{
@@ -85,9 +113,9 @@ namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
                } */
             if (ModelState.IsValid)
             {
-                _unitOfWork.categoryRepository.Update(category);
+                _unitOfWork.productRepository.Update(product);
                 _unitOfWork.Save();
-                TempData["Created"] = "Category Updated Successfully";
+                TempData["Created"] = "Product Updated Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -101,14 +129,14 @@ namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
+            Product? productFromDB = _unitOfWork.productRepository.GetN(x => x.Id == Id);
 
-            if (categoryFromDB == null)
+            if (productFromDB == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDB);
+            return View(productFromDB);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -124,14 +152,14 @@ namespace NhlakaBulkyWebApp.Areas.Admin.Controllers
                    ModelState.AddModelError("", "The Display Order cannot be the same as Catergory Name");
                } */
 
-            Category? categoryFromDB = _unitOfWork.categoryRepository.GetN(x => x.ID == Id);
-            if (categoryFromDB == null)
+            Product? productFromDB = _unitOfWork.productRepository.GetN(x => x.Id == Id);
+            if (productFromDB == null)
             {
                 return NotFound();
             }
-            _unitOfWork.categoryRepository.Remove(categoryFromDB);
+            _unitOfWork.productRepository.Remove(productFromDB);
             _unitOfWork.Save();
-            TempData["Created"] = "Category Deleted Successfully";
+            TempData["Created"] = "Product Deleted Successfully";
             return RedirectToAction("Index");
         }
     }

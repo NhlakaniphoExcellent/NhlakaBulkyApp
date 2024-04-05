@@ -12,10 +12,12 @@ namespace NhlakaBulky.DataAccess.Repository
     {
         private ApplicationDataContext _db;
         public ICategoryRepository categoryRepository { get; private set; }
+        public IProductRepository productRepository { get; private set; }
         public UnitOfWork(ApplicationDataContext db) 
         {
             _db = db;
             categoryRepository = new CategoryRepository(_db);
+            productRepository = new ProductRepository(_db); 
         }
 
         public void Save()
